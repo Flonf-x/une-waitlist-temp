@@ -1,0 +1,28 @@
+# Fly.io — alternative à Render. Région Paris (cdg).
+# Déploiement :
+#   fly launch --no-deploy        # crée l'app (garde ce fly.toml)
+#   fly secrets set DATABASE_URL="..." SENDGRID_API_KEY="..." PUBLIC_BACKEND_URL="https://<app>.fly.dev"
+#   fly deploy
+app = "une-waitlist-temp"
+primary_region = "cdg"
+
+[build]
+  dockerfile = "Dockerfile"
+
+[env]
+  PORT = "3000"
+  SENDGRID_FROM_EMAIL = "bonjour@une-app.fr"
+  ALLOWED_ORIGINS = "https://une-app.fr,https://www.une-app.fr"
+
+[http_service]
+  internal_port = 3000
+  force_https = true
+  auto_stop_machines = true
+  auto_start_machines = true
+  min_machines_running = 0
+
+[[http_service.checks]]
+  method = "GET"
+  path = "/health"
+  interval = "30s"
+  timeout = "5s"

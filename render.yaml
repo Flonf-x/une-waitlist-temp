@@ -1,0 +1,31 @@
+# Render Blueprint — déploiement en un clic du backend waitlist temporaire.
+# Doc : https://render.com/docs/blueprint-spec
+#
+# 1. Pousse ce dossier dans un repo Git (peut être privé).
+# 2. Render → New → Blueprint → sélectionne le repo.
+# 3. Renseigne les variables marquées sync:false (DATABASE_URL, SENDGRID_API_KEY).
+#    DATABASE_URL : crée d'abord une base Neon gratuite (https://neon.tech) et
+#    colle son connection string.
+services:
+  - type: web
+    name: une-waitlist-temp
+    runtime: node
+    plan: free
+    region: frankfurt
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /health
+    envVars:
+      - key: DATABASE_URL
+        sync: false
+      - key: SENDGRID_API_KEY
+        sync: false
+      - key: SENDGRID_FROM_EMAIL
+        value: bonjour@une-app.fr
+      - key: ALLOWED_ORIGINS
+        value: https://une-app.fr,https://www.une-app.fr
+      # PUBLIC_BACKEND_URL : après le 1er déploiement, copie l'URL .onrender.com
+      # attribuée et renseigne-la ici (puis redeploy) pour que le lien d'unsub
+      # dans les emails soit correct.
+      - key: PUBLIC_BACKEND_URL
+        sync: false
