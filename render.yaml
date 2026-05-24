@@ -29,3 +29,8 @@ services:
       # dans les emails soit correct.
       - key: PUBLIC_BACKEND_URL
         sync: false
+      # ADMIN_KEY : clé d'accès à la page d'admin (vue interne des inscrits) sur
+      # /api/v1/waitlist/admin?key=... Mets une longue chaîne aléatoire (≥ 32 car.).
+      # Laisser vide désactive la page d'admin.
+      - key: ADMIN_KEY
+        sync: false
