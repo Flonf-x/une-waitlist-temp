@@ -1,0 +1,21 @@
+# ── Backend waitlist temporaire — variables d'environnement ──
+# Copie en .env pour un test local : cp .env.example .env
+
+# Postgres managé (Neon recommandé — free tier persistant). Format :
+# postgresql://user:password@host/dbname?sslmode=require
+DATABASE_URL=
+
+# SendGrid (déjà utilisé par le monorepo une.). Sans clé, le service tourne
+# mais n'envoie pas d'email de confirmation.
+SENDGRID_API_KEY=
+SENDGRID_FROM_EMAIL=bonjour@une-app.fr
+
+# URL PUBLIQUE de CE service (sert à fabriquer le lien de désinscription).
+# Ex. https://une-waitlist-temp.onrender.com  ou  https://une-waitlist-temp.fly.dev
+PUBLIC_BACKEND_URL=
+
+# Origines autorisées en CORS (la landing). Séparées par des virgules.
+ALLOWED_ORIGINS=https://une-app.fr,https://www.une-app.fr
+
+# Port (Render/Fly l'injectent automatiquement ; 3000 en local).
+PORT=3000
